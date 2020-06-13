@@ -25,37 +25,13 @@ public class CompareCarValuesTests extends EntityTestBase {
 		PageFactory.initElements(factory, this);
 	}
 
-	private void readValuesFromText(String fileName) throws Exception {
-		String textread = EnvVars.readFile(fileBasePath, fileName);
-
-		textread.substring(textread.toString().indexOf("registraion "));
-
-		inputRegNumbersList = new ArrayList<>();
-		String last = textread.substring(textread.length() - 9, textread.length() - 1);
-		inputRegNumbersList.add(last);
-		String[] words = textread.split(" ");
-		for (int i = 0; i < words.length; i++) {
-
-			if (words[i].equalsIgnoreCase("registration")) {
-				String strrr = words[++i];
-
-				if (strrr.length() < 7) {
-					String twoo = strrr;
-					twoo += words[++i];
-					inputRegNumbersList.add(twoo);
-				} else {
-					inputRegNumbersList.add(strrr);
-				}
-			}
-		}
-
-	}
+	
 
 	@Test(description = "Login with Valid Credentials")
 	public void getQuote() throws Exception {
 		CarCheckPage carCheckPage = new CarCheckPage();
 		SoftAssert sfAssert = new SoftAssert();
-		readValuesFromText("car_input.txt");
+		getCarRegistartionNumbersFromTextFile("car_input.txt");
 		String carOutPut = EnvVars.readFile(fileBasePath, "car_output.txt");
 		driver.get(url);
 		for (int i = 0; i < inputRegNumbersList.size(); i++) {
@@ -82,13 +58,37 @@ public class CompareCarValuesTests extends EntityTestBase {
 				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getyearValue()),
 						"Expected getyearValue number Not Found");
 
-				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getv5CIssueDateValue()),
-						"Expected getv5CIssueDateValue number Not Found");
 				driver.navigate().back();
 				sfAssert.assertAll();
 				
 			}
 
+		}
+
+	}
+	
+	private void getCarRegistartionNumbersFromTextFile(String fileName) throws Exception {
+		String textread = EnvVars.readFile(fileBasePath, fileName);
+
+		textread.substring(textread.toString().indexOf("registraion "));
+
+		inputRegNumbersList = new ArrayList<>();
+		String last = textread.substring(textread.length() - 9, textread.length() - 1);
+		inputRegNumbersList.add(last);
+		String[] words = textread.split(" ");
+		for (int i = 0; i < words.length; i++) {
+
+			if (words[i].equalsIgnoreCase("registration")) {
+				String strrr = words[++i];
+
+				if (strrr.length() < 7) {
+					String twoo = strrr;
+					twoo += words[++i];
+					inputRegNumbersList.add(twoo);
+				} else {
+					inputRegNumbersList.add(strrr);
+				}
+			}
 		}
 
 	}
