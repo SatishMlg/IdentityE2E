@@ -56,45 +56,37 @@ public class CompareCarValuesTests extends EntityTestBase {
 		CarCheckPage carCheckPage = new CarCheckPage();
 		SoftAssert sfAssert = new SoftAssert();
 		readValuesFromText("car_input.txt");
-		String textread = EnvVars.readFile(fileBasePath, "car_output.txt");
+		String carOutPut = EnvVars.readFile(fileBasePath, "car_output.txt");
 		driver.get(url);
 		for (int i = 0; i < inputRegNumbersList.size(); i++) {
 
 			if (carCheckPage.getcarFare(inputRegNumbersList.get(i)) == null) {
 				// No Vehicles Found Add Log
 				System.out.println("No Vehicles found");
+				click(carCheckPage.tryAgain);
 
-			}
-			else {
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.getRegistrationText());
-			sfAssert.assertTrue(textread.contains(carCheckPage.getRegistrationText()),
-					"Expected Registration number Not Found");
+			} else {
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getRegistrationText()),
+						"Expected Registration number Not Found");
 
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.getmakeValue());
-			sfAssert.assertTrue(textread.contains(carCheckPage.getmakeValue()),
-					"Expected Registration number Not Found");
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getmakeValue()),
+						"Expected getmakeValue number Not Found");
 
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.gemodelValue());
-			sfAssert.assertTrue(textread.contains(carCheckPage.gemodelValue()),
-					"Expected Registration number Not Found");
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.gemodelValue()),
+						"Expected gemodelValue number Not Found");
 
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.getcolourValue());
-			sfAssert.assertTrue(textread.contains(carCheckPage.getcolourValue()),
-					"Expected Registration number Not Found");
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getcolourValue()),
+						"Expected getcolourValue number Not Found");
 
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.getyearValue());
-			sfAssert.assertTrue(textread.contains(carCheckPage.getyearValue()),
-					"Expected Registration number Not Found");
+				System.out.println(carCheckPage.getyearValue());
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getyearValue()),
+						"Expected getyearValue number Not Found");
 
-			carCheckPage.getcarFare(inputRegNumbersList.get(i));
-			System.out.println(carCheckPage.getv5CIssueDateValue());
-			sfAssert.assertTrue(textread.contains(carCheckPage.getv5CIssueDateValue()),
-					"Expected Registration number Not Found");
+				sfAssert.assertTrue(carOutPut.contains(carCheckPage.getv5CIssueDateValue()),
+						"Expected getv5CIssueDateValue number Not Found");
+				driver.navigate().back();
+				sfAssert.assertAll();
+				
 			}
 
 		}

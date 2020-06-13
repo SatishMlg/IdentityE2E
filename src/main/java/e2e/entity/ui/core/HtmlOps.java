@@ -120,6 +120,21 @@ public class HtmlOps {
 		return null;
 	}
 	
+public boolean isElementVisisbleByWait(WebElement element) {
+		
+
+		WebDriverWait wait = new WebDriverWait(driver, DEFAULT_UIELEMENT_WAIT_TIME);
+		try {
+			if (wait.until(ExpectedConditions.visibilityOfAllElements(element)) != null) {
+				return true;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return false;
+	}
+	
 	 public String getElementText(WebElement element) {
 		 String val = element.getText();
 			if (null != val && !val.isEmpty()) {
