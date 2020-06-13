@@ -18,12 +18,11 @@ public class CarCheckPage extends HtmlOps {
 		setInputField(registrationNumber, registrationNumberInput);
 		click(freeCarCheckBtn);
 		
-		if (isRegistrationValue()) {
-			System.out.println("Continue to verify other elementss");
-			return this;
-		} else {
-			isTryAgainAlertDisplayed();
+		if (isTryAgainAlertDisplayed()) {
+			System.out.println("Registration details haa no values");
 			return null;
+		} else {
+			return this;
 		}
 
 	}

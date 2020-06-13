@@ -3,9 +3,6 @@ package e2e.entity.ui.carValueTests;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.annotations.AfterMethod;
@@ -28,21 +25,23 @@ public class CompareCarValuesTests extends EntityTestBase {
 
 	@AfterMethod
 	public void tearDown() {
+		
 		if (driver!=null) {
 			driver.quit();
 			
 		}
 	}
 
-	@Test(description = "Login with Valid Credentials")
-	public void getQuote() throws Exception {
-		CarCheckPage carCheckPage = new CarCheckPage();
+	@Test(description = "Get Car Quotation")
+	public void getQuoteTest() throws Exception {
+		
 		SoftAssert sfAssert = new SoftAssert();
 		getCarRegistartionNumbersFromTextFile("car_input.txt");
 		String carOutPut = EnvVars.readFile(fileBasePath, "car_output.txt");
 		driver.get(url);
 		for (int i = 0; i < inputRegNumbersList.size(); i++) {
-
+			CarCheckPage carCheckPage = new CarCheckPage();
+			System.out.println("Trying to get Reg Details for the car : " + inputRegNumbersList.get(i));
 			if (carCheckPage.getcarFare(inputRegNumbersList.get(i)) == null) {
 				// No Vehicles Found Add Log
 				System.out.println("No Vehicles found");
