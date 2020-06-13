@@ -1,8 +1,13 @@
 package e2e.entity.ui.core;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class EnvVars {
 
@@ -12,6 +17,7 @@ public class EnvVars {
 	public static String BROWSER;
 	private static Properties props = null;
 	private static String configPropertyPath = "/config.properties";
+	public static String carInput = "/car_input.txt";
 	
 	static {
 		DEFAULT_E2E_URL = getExtProperty("DEFAULT_E2E_URL");
@@ -72,6 +78,19 @@ public class EnvVars {
 		File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
 		return file.getAbsolutePath();
 	}
+	
+	 public static String readFile(String pathToFile, String fileName) {
+	        Path fullPath = Paths.get(pathToFile, fileName);
+
+	        try {
+	            String contentsOfFile = Files.lines(fullPath).collect(Collectors.joining("\n"));
+	            System.out.println("Input File Path  " + fullPath.toString());
+	            return contentsOfFile;
+	        } catch (IOException e) {
+	        	System.out.println(fullPath.toString());
+	        }
+	        return "";
+	    }
 }
 
 
