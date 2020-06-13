@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -25,7 +26,13 @@ public class CompareCarValuesTests extends EntityTestBase {
 		PageFactory.initElements(factory, this);
 	}
 
-	
+	@AfterMethod
+	public void tearDown() {
+		if (driver!=null) {
+			driver.quit();
+			
+		}
+	}
 
 	@Test(description = "Login with Valid Credentials")
 	public void getQuote() throws Exception {
