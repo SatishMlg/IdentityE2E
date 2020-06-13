@@ -119,5 +119,13 @@ public class HtmlOps {
 
 		return null;
 	}
+	
+	 public String getElementText(WebElement element) {
+		 String val = element.getText();
+			if (null != val && !val.isEmpty()) {
+				return val;
+			}
+			return element.getAttribute("value");
+	 }
 
 }

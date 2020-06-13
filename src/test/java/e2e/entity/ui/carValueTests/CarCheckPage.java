@@ -18,20 +18,74 @@ public class CarCheckPage extends HtmlOps {
 	public CarCheckPage getcarFare(String registrationNumber) {
 		setInputField(registrationNumber, registrationNumberInput);
 		click(freeCarCheckBtn);
-		return new CarCheckPage();
+		if (noVehicleFoundAlert.isDisplayed()) {
+			return null;
+		}
+		else {
+			return this;
+		}
+		
+	}
+	
+	public String getRegistrationText() {
+		return getElementText(registrationValue);
+	}
+	
+	public String getmakeValue() {
+		return getElementText(makeValue);
+	}
+	
+	public String gemodelValue() {
+		return getElementText(modelValue);
 	}
 	
 	
+	public String getcolourValue() {
+		return getElementText(colourValue);
+	}
+	
+	public String getyearValue() {
+		return getElementText(yearValue);
+	}
+	
+	public String getv5CIssueDateValue() {
+		return getElementText(v5CIssueDateValue);
+	}
+	public String getRegistrationTexts() {
+		return getElementText(registrationValue);
+	}
+	
 	 	@FindBy(xpath = "//dt[text()='Registration']/following-sibling::dd[1]")
-		public WebElement registrationText;
+		public WebElement registrationValue;
 		
+	 	@FindBy(xpath = "//dt[text()='Make']/following-sibling::dd[1]")
+		public WebElement makeValue;
+	 	
+	 	@FindBy(xpath = "//dt[text()='Model']/following-sibling::dd[1]")
+		public WebElement modelValue;
+	 	
+	 	@FindBy(xpath = "//dt[text()='Colour']/following-sibling::dd[1]")
+		public WebElement colourValue;
+	 	
+	 	@FindBy(xpath = "//dt[text()='Year']/following-sibling::dd[1]")
+		public WebElement yearValue;
+	 	
+	 	@FindBy(xpath = "//dt[text()='Registered']/following-sibling::dd[1]")
+		public WebElement registeredValue;
+	 	
+	 	@FindBy(xpath = "//dt[text()='V5C Issue Date']/following-sibling::dd[1]")
+		public WebElement v5CIssueDateValue;
+	 	
 		@FindBy(xpath = "//button[text()='Free Car Check']")
 		public WebElement freeCarCheckBtn;
 		
 		@FindBy(id="vrm-input")
 		private WebElement registrationNumberInput;
 		
-		@FindBy(xpath = "//button[contains(@class,'submit-accept-request')]")
-		private WebElement acceptOkBtn;
+		@FindBy(xpath="//span[text()='Vehicle Not Found']")
+		private WebElement noVehicleFoundAlert;
+		
+		
+		
 	
 }
