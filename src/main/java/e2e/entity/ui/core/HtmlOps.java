@@ -105,7 +105,18 @@ public class HtmlOps {
 			
 		}
 	}
-	
+	public void waitForElementIsClickable(long secondsToWait, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, secondsToWait);
+		try {
+			if (wait.until(ExpectedConditions.elementToBeClickable(element)) != null)
+				System.out.println("element is clckable" + element.toString().substring(element.toString().indexOf("->")));
+			else
+				System.out.println("element is not clckable" + element.toString().substring(element.toString().indexOf("->")));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void scrollingToBottomofAPage() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
