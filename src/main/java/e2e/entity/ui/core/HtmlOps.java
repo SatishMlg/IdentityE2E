@@ -97,6 +97,15 @@ public class HtmlOps {
 			System.out.println("element is not visible" + element.toString().substring(element.toString().indexOf("->")));
 	}
 	
+	public void waitForElementVisiblitySize(long secondsToWait, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, secondsToWait);
+		int size = wait.until(ExpectedConditions.visibilityOfAllElements(element)).size();
+		if (size==0) {
+			System.out.println("No elements found");
+			
+		}
+	}
+	
 	public void scrollingToBottomofAPage() {
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
@@ -136,6 +145,7 @@ public boolean isElementVisisbleByWait(WebElement element) {
 	}
 	
 	 public String getElementText(WebElement element) {
+		 waitForElementVisiblitySize(23, element);
 		 String val = element.getText();
 			if (null != val && !val.isEmpty()) {
 				return val;
