@@ -1,0 +1,10 @@
+# Eclipse
+.project
+.settings
+.classpath
+.factorypath
+
+/target/
+/test-output/
+/testRecords/
+/testReport/
